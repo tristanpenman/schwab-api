@@ -8,6 +8,9 @@ def account_summary():
 def trade_ticket():
     return "https://client.schwab.com/app/trade/tom/trade?ShowUN=YES"
 
+def user_preferences():
+    return "https://client.schwab.com/api/PrestoClient/com.schwab.client.Global/FetchUserPreference"
+
 # New API
 def order_verification_v2():
     return "https://ausgateway.schwab.com/api/is.TradeOrderManagementWeb/v1/TradeOrderManagementWebPort/orders"
