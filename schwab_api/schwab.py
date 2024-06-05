@@ -571,8 +571,6 @@ class Schwab(SessionManager):
         response = json.loads(r.text)
 
         messages = list()
-        if limit_price_warning is not None:
-            messages.append(limit_price_warning)
         if "orderMessages" in response["orderStrategy"] and response["orderStrategy"]["orderMessages"] is not None:
             for message in response["orderStrategy"]["orderMessages"]:
                 messages.append(message["message"])
