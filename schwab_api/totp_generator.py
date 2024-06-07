@@ -7,8 +7,7 @@ def generate_totp():
     :rtype: (str, str)
     """
     request = vp.generate_request()
-    session = vp.requests.Session()
-    response = vp.get_provisioning_response(request, session)
+    response = vp.get_provisioning_response(request)
     otp_token = vp.get_token_from_response(response.content)
     otp_secret = vp.decrypt_key(otp_token['iv'], otp_token['cipher'])
     otp_secret_b32 = base64.b32encode(otp_secret).upper().decode('ascii')

@@ -1,19 +1,25 @@
+import asyncio
 import hashlib
 import json
 import requests
 import pyotp
 import re
-from . import urls
 
-import asyncio
+from playwright.sync_api import ViewportSize
 from playwright.async_api import async_playwright, TimeoutError
 from playwright_stealth import stealth_async
 from requests.cookies import cookiejar_from_dict
+from typing import TypedDict
 
+from . import urls
 
 # Constants
 USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:{version}) Gecko/20100101 Firefox/"
-VIEWPORT = { 'width': 1920, 'height': 1080 }
+
+VIEWPORT: ViewportSize = {
+    'width': 1920,
+    'height': 1080
+}
 
 class SessionManager:
     def __init__(self, debug = False) -> None:
@@ -24,9 +30,11 @@ class SessionManager:
         :param debug: Enable debug logging
         """
         self.headers = {}
+        self.headless = True
         self.session = requests.Session()
         self.playwright = None
         self.browser = None
+        self.browserType = None
         self.page = None
         self.debug = debug
 

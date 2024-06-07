@@ -1,7 +1,7 @@
 import json
 import urllib.parse
 import requests
-import sys
+import requests.cookies
 
 from . import urls
 from .account_information import Position, Account
@@ -37,7 +37,7 @@ class Schwab(SessionManager):
         requests.cookies.remove_cookie_by_name(self.session.cookies, 'AcctInfo')
         for cookie in self.session.cookies:
             if cookie.name == 'CustAccessInfo':
-                if cookie.value.endswith('|'):
+                if cookie.value and cookie.value.endswith('|'):
                     cookie.value += 'AllAccts'
                     self.session.cookies.set_cookie(cookie)
         r = self.session.get(urls.positions_data())
